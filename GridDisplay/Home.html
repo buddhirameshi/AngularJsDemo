@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+
+
+    <link href="Content/bootstrap.css" rel="stylesheet"/>
+    <link href="Content/Site.css" rel="stylesheet" />
+</head>
+<body>
+
+    <script src="scripts/jquery-3.1.1.js"></script>
+    <script src="scripts/bootstrap.js"></script>
+    <script src="scripts/angular.min.js"></script>
+    <script src="scripts/angular-route.min.js"></script>
+    <script src="app.js"></script>
+    <script src="scripts/controllers/MainController.js"></script>
+    <script src="scripts/services/items.js"></script>
+
+    <div class="main" ng-app="gridViewApp" ng-controller="MainController">
+        <h1>  {{title}}</h1>
+     <table class="table table-bordered table-condensed table-responsive table-hover itemTbl">
+         <colgroup>
+             <col span="1" style="width: 15%;"/>
+             <col span="1" style="width: 40%;"/>
+             <col span="1" style="width: 25%;"/>
+             <col span="1" style="width: 10%;"/>
+             <col span="1" style="width: 10%;"/>
+         </colgroup>
+         <thead>
+             <tr>
+                 <th>
+                     ItemID
+                 </th>
+                 <th>
+                     Description
+                 </th>
+                 <th>
+                     Price
+                 </th>
+                 <th>
+
+                 </th>
+                 <th>
+
+                 </th>
+             </tr>
+         </thead>
+         <tbody>
+             <tr ng-repeat="item in model.items" ng-include="getTemplate(item)">
+             </tr>
+         </tbody>
+         <tfoot>
+             <tr>
+                 <td>
+
+                 </td>
+                 <td>
+                     <input type="text" id="addDescription" class="descriptionText"/>
+                 </td>
+                 <td>
+                     <input type="text" id="addPrice" class="priceText" />
+                 </td>
+                 <td>
+                     <div ng-click="addItem($index)"> <img class="imgBtn btn" id="addBtn" src="images/add.ico" /></div>
+                 </td>
+                 <td>
+
+                 </td>
+             </tr>
+         </tfoot>
+
+    </table>
+      
+
+        <script type="text/ng-template" id="display">
+          <td>{{item.ItemID }}</td>
+          <td>{{item.Description }}</td>
+          <td>{{item.Price | currency }}</td>
+          <td><div ng-click="editItem(item)"><img class="imgBtn btn" src="../../images/Edit.ico" /></div></td>
+          <td><div ng-click="deleteItem($index)"><img class="imgBtn btn" src="../../images/delete.png" /></div></td>    
+        </script>
+
+        <script type="text/ng-template" id="edit">
+            <td>{{item.ItemID }}</td>
+            <td><input type="text" ng-model="model.selected.Description" /></td>
+               <td><input type="text" ng-model="model.selected.Price" /></td>        
+            <td>
+                <div ng-click="saveItem($index)"><img class="imgBtn btn" src="../../images/update.ico" /></div>
+                <div ng-click="reset()"><img class="imgBtn btn" src="../../images/cancel.ico" /></div>
+                <!--<button ng-click="saveContact($index)">Save</button>
+                <button ng-click="reset()">Cancel</button>-->
+            </td>
+            <td><div ng-click="deleteItem($index)"><img class="imgBtn btn" src="../../images/delete.png" /></div></td>
+
+        </script>
+        </div>
+
+</body>
+</html>
